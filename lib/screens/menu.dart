@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:teyvat_item_tracker_mobile/screens/form.dart';
+import 'package:teyvat_item_tracker_mobile/screens/show_items.dart';
+import 'package:teyvat_item_tracker_mobile/widgets/drawer.dart';
 
-class Item {
+
+class ShopItem {
   final String name;
   final IconData icon;
 
-  Item(this.name, this.icon);
+  ShopItem(this.name, this.icon);
+}
+
+class Item {
+  String name;
+  int amount;
+  int price;
+  String description;
+
+  Item(this.name, this.amount, this.price, this.description);
 }
 
 class ShopCard extends StatelessWidget {
-  final Item item;
+  final ShopItem item;
 
   const ShopCard(this.item, {super.key}); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color(0xFFEA5455),
+      color: const Color(0xFF8CABFF),
+      borderRadius: BorderRadius.circular(20),
       child: InkWell(
         // Area responsive terhadap sentuhan
         onTap: () {
@@ -24,6 +38,22 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
+          if (item.name == "Tambah Item") {
+            // Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ShopFormPage.
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ShopFormPage(),
+                  ));
+          }
+          if (item.name == "Lihat Item") {
+            // Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ShopFormPage.
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ShowItemsPage(),
+                  ));
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
@@ -34,14 +64,14 @@ class ShopCard extends StatelessWidget {
               children: [
                 Icon(
                   item.icon,
-                  color: const Color(0xFF002B5B),
-                  size: 30.0,
+                  color: const Color(0xFF35155D),
+                  size: 40.0,
                 ),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
                   item.name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Color(0xFF002B5B)),
+                  style: const TextStyle(color: Color(0xFF35155D)),
                 ),
               ],
             ),
@@ -54,19 +84,26 @@ class ShopCard extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
-  final List<Item> items = [
-    Item("Lihat Item", Icons.checklist),
-    Item("Tambah Item", Icons.add_shopping_cart),
-    Item("Logout", Icons.logout),
+  final List<ShopItem> items = [
+    ShopItem("Lihat Item", Icons.checklist),
+    ShopItem("Tambah Item", Icons.add_shopping_cart),
+    ShopItem("Logout", Icons.logout),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'Teyvat Item Tracker Mobile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          ),
         ),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFF4477CE),
       ),
+      endDrawer: const RightDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -78,11 +115,12 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 // Widget Text untuk menampilkan tulisan dengan alignment center dan style yang sesuai
                 child: Text(
-                  'Teyvat Item Tracker', // Text yang menandakan toko
+                  'Selamat datang di Teyvat Item Tracker', // Text yang menandakan toko
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: const Color(0xFF35155D)
                   ),
                 ),
               ),
@@ -95,7 +133,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                children: items.map((Item item) {
+                children: items.map((ShopItem item) {
                   // Iterasi untuk setiap item
                   return ShopCard(item);
                 }).toList(),
