@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teyvat_item_tracker_mobile/screens/list_item.dart';
 import 'package:teyvat_item_tracker_mobile/screens/menu.dart';
 import 'package:teyvat_item_tracker_mobile/screens/form.dart';
-import 'package:teyvat_item_tracker_mobile/screens/show_items.dart';
 
 class RightDrawer extends StatelessWidget {
   const RightDrawer({super.key});
@@ -69,19 +69,14 @@ class RightDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.checklist),
-            title: const Text('Lihat Item'),
-            // Bagian redirection ke ShopFormPage
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Daftar Item'),
             onTap: () {
-              /*
-              Buatlah routing ke ShopFormPage di sini,
-              setelah halaman ShopFormPage sudah dibuat.
-              */
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ShowItemsPage(),
-                  ));
+                // Route menu ke halaman produk
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ItemPage()),
+                );
             },
           ),
         ],
