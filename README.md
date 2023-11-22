@@ -3,9 +3,23 @@
 ### 2206024575
 
 **Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?**
-
+Pengambilan data JSON tanpa membuat model terlebih dahulu dapat dilakukan, nantinya data masih dalam wujud jsonDecode `var data = jsonDecode(utf8.decode(response.bodyBytes));`. Namun, hal ini tidak lebih baik dibanding membuat model terlebih dahulu sebelum pengambilan data JSON karena data tidak langsung diinisiasi menjadi suatu object sesuai class modelnya.
 
 **Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.**
+MyWatchlistPage: Membuat halaman utama dari watchlist
+SingleWatchlistPage: Membuat halaman detail dari suatu watchlist
+FutureBuilder: Merupakan widget yang digunakan untuk melakukan proses asinkron
+Checkbox: Menampilkan Checkbox yang bisa diklik
+MaterialPageRoute: Mengarahkan routing ke halaman (widget) tertentu
+Drawer: Membuat drawer navigator
+ListTile: Membuat list beberapa tile
+Scaffold	Mengatur layout dari widget yang ada di dalamnya
+AppBar	Menambahkan bar aplikasi yang berisi title dengan align left
+Text	Berisi sebuah Text dengan properti di dalamnya
+Center	Mengatur layout widget di dalamnya agar centered
+Column	Mengatur layout widget di dalamnya agar turun ke bawah (tidak inline-flex)
+TextStyle	Mengatur style dari sebuah text
+Container	Menampung beberapa widget di dalamnya
 
 **Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.**
 
