@@ -6,29 +6,43 @@
 Pengambilan data JSON tanpa membuat model terlebih dahulu dapat dilakukan, nantinya data masih dalam wujud jsonDecode `var data = jsonDecode(utf8.decode(response.bodyBytes));`. Namun, hal ini tidak lebih baik dibanding membuat model terlebih dahulu sebelum pengambilan data JSON karena data tidak langsung diinisiasi menjadi suatu object sesuai class modelnya.
 
 **Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.**
-MyWatchlistPage: Membuat halaman utama dari watchlist
-SingleWatchlistPage: Membuat halaman detail dari suatu watchlist
+Fungsi CookieRequest adalah untuk memfasilitasi penggunaan cookie dalam permintaan kita ke server, seperti menyertakan cookie yang tepat dalam permintaan, memperbarui cookie berdasarkan respons dari server, dan lainnya. CookieRequest perlu digunakan agar:
+1. Konsistensi Data: Untuk memastikan cookie yang sama digunakan di seluruh aplikasi akan membantu menjaga konsistensi data.
+2. Otentikasi dan Otorisasi: Karena cookie berisi token akses yang digunakan untuk mengotentikasi permintaan pengguna ke server.
+
+**Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.**
+1. JSON ditampilkan di halaman asal proyek MyWatchlist di http://127.0.0.1:8000/json/
+2. Data JSON difetch di list_item.dart
+3. JSON yang telah difetch akan disesuaikan bodynya menuju model Item sesuai dengan properti-properti
+4. Data list dalam model Item dipanggil dalam ItemPage untuk distyling card satu per satu
+5. Setiap card memiliki onTap() yang jika diklik maka data object Item pada card tersebut dipassing ke DetailItemPage untuk ditampilkan khusus pada data tersebut
+
+**Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.**
+User mengisi data pada login page dan menekan tombol login. Lalu response dari onPressed akan memanggil login dari Django dan memberikan username dan password ke Django. lalu Django mengolah dan menjalankan fungsi login. Setelah itu response dari Django tersebut dihandle oleh Flutter (bagaimana jika success atau failed).
+
+**Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.**
 FutureBuilder: Merupakan widget yang digunakan untuk melakukan proses asinkron
 Checkbox: Menampilkan Checkbox yang bisa diklik
 MaterialPageRoute: Mengarahkan routing ke halaman (widget) tertentu
 Drawer: Membuat drawer navigator
 ListTile: Membuat list beberapa tile
-Scaffold	Mengatur layout dari widget yang ada di dalamnya
-AppBar	Menambahkan bar aplikasi yang berisi title dengan align left
-Text	Berisi sebuah Text dengan properti di dalamnya
-Center	Mengatur layout widget di dalamnya agar centered
-Column	Mengatur layout widget di dalamnya agar turun ke bawah (tidak inline-flex)
-TextStyle	Mengatur style dari sebuah text
-Container	Menampung beberapa widget di dalamnya
-
-**Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.**
-
-**Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.**
-
-**Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.**
+Scaffold: Mengatur layout dari widget yang ada di dalamnya
+AppBar: Menambahkan bar aplikasi yang berisi title dengan align left
+Text: Berisi sebuah Text dengan properti di dalamnya
+Center: Mengatur layout widget di dalamnya agar centered
+Column: Mengatur layout widget di dalamnya agar turun ke bawah (tidak inline-flex)
+TextStyle: Mengatur style dari sebuah text
+Container: Menampung beberapa widget di dalamnya
 
 **Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).**
-
+1. Menambahkan ListTile() menuju ItemPage di dalam drawer.dart
+2. Membuat file model Item bernama item.dart yang berisi model dari Item
+3. Melakukan fetch di dalam list_item.dart ke alamat 'http://127.0.0.1:8000/json/'
+4. Menambahkan inisiasi class sesuai dengan JSON yang akan difetch
+5. Menambahkan object yang difetch ke dalam Flutter list di dalam list_item.dart
+6. Menyusun halaman ItemPage agar berisi daftar item-item sesuai isi elemen dari list item.
+7. Membuat halaman baru untuk detail item
+8. Menggantikan Container pada list_item dengan Inkwell.
 
 # TUGAS 8
 ### Fiona Ratu Maheswari
